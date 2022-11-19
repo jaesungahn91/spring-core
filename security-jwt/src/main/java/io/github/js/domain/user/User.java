@@ -1,9 +1,12 @@
 package io.github.js.domain.user;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.*;
 
+@Getter
 @Entity
 @Table(name = "users")
 public class User {
