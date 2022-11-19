@@ -38,7 +38,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
