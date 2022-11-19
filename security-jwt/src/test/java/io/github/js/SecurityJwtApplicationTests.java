@@ -1,10 +1,10 @@
-package io.github.js.security;
+package io.github.js;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SecurityApplicationTests {
+class SecurityJwtApplicationTests {
 
 	@Test
 	void contextLoads() {
