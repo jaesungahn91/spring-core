@@ -1,6 +1,7 @@
 package io.github.js.domain.user;
 
 import lombok.Getter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -30,6 +31,10 @@ public class User {
     }
 
     protected User() {
+    }
+
+    public boolean matchesPassword(String rawPassword, PasswordEncoder passwordEncoder) {
+        return password.matchesPassword(rawPassword, passwordEncoder);
     }
 
 }
