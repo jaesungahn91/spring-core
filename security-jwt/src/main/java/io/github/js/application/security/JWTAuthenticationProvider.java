@@ -8,8 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.Optional;
-
 import static java.util.Collections.singleton;
 import static java.util.Optional.of;
 

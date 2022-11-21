@@ -22,4 +22,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/user
-Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOjEsIm5hbWUiOiJlbWFpbEBlbWFpbC5jb20iLCJpYXQiOjE2Njg4OTA5OTN9.f-H7XbAGcYY9hO-8jewHnlpI9ToHWL24zPVHDeJqcMY
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOjEsIm5hbWUiOiJlbWFpbEBlbWFpbC5jb20iLCJpYXQiOjE2NjkwNDgxMjR9.X_Fcri8XDhw1BBaPG4zzVwYGY4Ki-LUiYBxxZjOrMZc
