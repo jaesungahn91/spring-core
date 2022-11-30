@@ -1,5 +1,9 @@
 package io.github.js.application.order;
 
-class OrderRestControllerTest {
+import io.github.js.application.AcceptanceTest;
+
+class OrderRestControllerTest extends AcceptanceTest {
+
+
 
 }
