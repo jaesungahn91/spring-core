@@ -20,7 +20,7 @@ public class AcceptanceTest {
     @LocalServerPort
     int port;
 
-    private RequestSpecification spec;
+    protected RequestSpecification spec;
 
     @BeforeEach
     public void setUp(RestDocumentationContextProvider restDocumentation) {

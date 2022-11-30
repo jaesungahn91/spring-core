@@ -1,0 +1,10 @@
+###
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "order": {
+    "menuName": "새우 덮밥",
+    "quantity": 2
+  }
+}
