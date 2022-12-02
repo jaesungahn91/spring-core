@@ -1,0 +1,19 @@
+[[index]]
+=== link:./index-docs.html[HOME]
+
+[[common]]
+== Common API Docs
+
+=== HTTP Status Code
+[cols="2,3,5"]
+|===
+| Code | Description | Constraint
+
+| 200
+| Success
+|
+
+| 400
+| Bad Request
+|
+|===
