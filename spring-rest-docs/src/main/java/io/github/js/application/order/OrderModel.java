@@ -1,6 +1,5 @@
 package io.github.js.application.order;
 
-
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Getter;

@@ -34,8 +34,7 @@ class OrderRestControllerTest extends AcceptanceTest {
         OrderPostRequestDTO dto = new OrderPostRequestDTO(menuName, quantity);
 
         return RestAssured
-                .given()
-
+                .given().log().all()
                 .spec(this.spec)
                 .accept(APPLICATION_JSON_VALUE)
                 .filter(document("post-order",
@@ -46,14 +45,11 @@ class OrderRestControllerTest extends AcceptanceTest {
                                 fieldWithPath("order.menuName").type(STRING).description("order menu name"),
                                 fieldWithPath("order.quantity").type(NUMBER).description("order quantity"))
                 ))
-                .log().all()
                 .body(dto)
                 .contentType(APPLICATION_JSON_VALUE)
                 .when().post("/orders")
                 .then().log().all()
                 .extract();
     }
-
-
 
 }
