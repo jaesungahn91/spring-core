@@ -7,6 +7,7 @@
 ### [Spring REST Docs](/docs/spring-rest-dosc.md)
 ### Spring HATEOAS
 ### Spring Data JPA
+### Querydsl
 ### Spring Data Redis
 ### Spring Cloud
 ### Exception
