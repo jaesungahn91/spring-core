@@ -16,14 +16,17 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 public class OrderPostRequestDTO {
 
     @NotBlank
-    private final String menuName;
+    String menuName;
 
     @NotNull
-    private final Integer quantity;
+    Integer quantity;
 
     public OrderPostRequestDTO(String menuName, Integer quantity) {
         this.menuName = menuName;
         this.quantity = quantity;
+    }
+
+    protected OrderPostRequestDTO() {
     }
 
 }

@@ -1,6 +1,3 @@
-[[index]]
-=== link:./index-docs.html[HOME]
-
 [[common]]
 == Common API Docs
 

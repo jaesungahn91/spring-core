@@ -6,7 +6,7 @@
 :toclevels: 3
 :sectlinks:
 
-include::common.adoc[]
+include::{docfile}/../common.adoc[]
 
 == Order API Docs
 
@@ -15,6 +15,7 @@ Curl Request
 include::{snippets}/post-order/curl-request.adoc[]
 
 Request Headers
+include::{snippets}/post-order/request-headers.adoc[]
 
 Path Parameters
 
