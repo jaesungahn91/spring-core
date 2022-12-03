@@ -31,22 +31,21 @@ class OrderRestControllerTest extends AcceptanceTest {
     }
 
     private ExtractableResponse<Response> 주문_생성_요청(String menuName, Integer quantity) {
-        OrderPostRequestDTO dto = new OrderPostRequestDTO(menuName, quantity);
+        final var restDocumentationFilter  = document("post-order",
+                requestFields(
+                        fieldWithPath("order.menuName").type(STRING).description("order menu name"),
+                        fieldWithPath("order.quantity").type(NUMBER).description("order quantity")),
+                responseFields(
+                        fieldWithPath("order.menuName").type(STRING).description("order menu name"),
+                        fieldWithPath("order.quantity").type(NUMBER).description("order quantity")));
 
+        OrderPostRequestDTO dto = new OrderPostRequestDTO(menuName, quantity);
         return RestAssured
-                .given().log().all()
-                .spec(this.spec)
+                .given(this.spec).log().all()
                 .accept(APPLICATION_JSON_VALUE)
-                .filter(document("post-order",
-                        requestFields(
-                                fieldWithPath("order.menuName").type(STRING).description("order menu name"),
-                                fieldWithPath("order.quantity").type(NUMBER).description("order quantity")),
-                        responseFields(
-                                fieldWithPath("order.menuName").type(STRING).description("order menu name"),
-                                fieldWithPath("order.quantity").type(NUMBER).description("order quantity"))
-                ))
-                .body(dto)
                 .contentType(APPLICATION_JSON_VALUE)
+                .body(dto)
+                .filter(restDocumentationFilter)
                 .when().post("/orders")
                 .then().log().all()
                 .extract();
