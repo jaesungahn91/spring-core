@@ -504,7 +504,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:53242/orders' -i -X POST \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:53295/orders' -i -X POST \
     -H 'Authorization: Bearer token' \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
@@ -605,7 +605,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Authorization: Bearer token
 Accept: application/json
 Content-Type: application/json
-Host: localhost:53242
+Host: localhost:53295
 Content-Length: 44
 
 {"order":{"menuName":"메뉴","quantity":2}}</code></pre>
@@ -619,7 +619,7 @@ Content-Length: 44
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Sat, 03 Dec 2022 13:26:28 GMT
+Date: Sat, 03 Dec 2022 13:27:01 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 44

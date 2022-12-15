@@ -1,5 +1,4 @@
-# Spring Boot Sample 
-- Spring Boot 2.7.5
+# Spring Playground
 - Java 11
 ---
 
