@@ -9,6 +9,9 @@
 ### [Spring Data JPA](/docs/spring)
 #### - Querydsl
 
+### [Spring Data JDBC]()
+#### - jOOQ
+
 ### Spring HATEOAS
 
 ### Spring Data Redis
