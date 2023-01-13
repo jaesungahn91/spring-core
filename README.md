@@ -12,6 +12,8 @@
 ### [Spring Data JDBC](/docs/spring-data-jdbc-jooq.md)
 #### - jOOQ
 
+### [Spring WebFlux](/docs/spring-webflux.md)
+
 ### Spring HATEOAS
 
 ### Spring Data Redis
@@ -23,5 +25,3 @@
 ### AOP
 
 ### Validator
-
-### WebFlux
