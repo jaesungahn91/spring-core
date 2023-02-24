@@ -5,6 +5,7 @@
 ### [Spring Security](./docs/spring-security.md)
 
 ### [Spring REST Docs](/docs/spring-rest-dosc.md)
+#### - REST-assured
 
 ### [Spring Data JPA](/docs/spring-data-jpa.md)
 #### - Querydsl
