@@ -1,4 +1,4 @@
-# Spring Playground
+# Spring Core
 - Java 11
 ---
 
