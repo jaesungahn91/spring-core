@@ -15,15 +15,3 @@
 - jOOQ
 
 ### [Spring WebFlux](/docs/spring-webflux.md)
-
-### Spring HATEOAS
-
-### Spring Data Redis
-
-### Spring Cloud
-
-### Exception
-
-### AOP
-
-### Validator
