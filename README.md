@@ -6,13 +6,13 @@
 ### [Spring Security](./docs/spring-security.md)
 
 ### [Spring REST Docs](/docs/spring-rest-dosc.md)
-#### - REST-assured
+- REST-assured
 
 ### [Spring Data JPA](/docs/spring-data-jpa.md)
-#### - Querydsl
+- Querydsl
 
 ### [Spring Data JDBC](/docs/spring-data-jdbc-jooq.md)
-#### - jOOQ
+- jOOQ
 
 ### [Spring WebFlux](/docs/spring-webflux.md)
 
