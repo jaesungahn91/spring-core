@@ -4,6 +4,7 @@
 # Spring Core
 
 ### [Spring Security](./docs/spring-security.md)
+- JWT
 
 ### [Spring REST Docs](/docs/spring-rest-dosc.md)
 - REST-assured
