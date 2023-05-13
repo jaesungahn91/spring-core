@@ -1,4 +1,4 @@
-![spring](https://img.shields.io/badge/Spring%20boot-2.7.6%20RELEASE-green)
+![spring](https://img.shields.io/badge/Spring%20boot-2.7.6-green)
 ![java](https://img.shields.io/badge/Java-11-red)
 
 # Spring Core
