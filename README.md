@@ -1,6 +1,7 @@
+![spring](https://img.shields.io/badge/Spring%20boot-2.7.6%20RELEASE-green)
+![java](https://img.shields.io/badge/Java-11-red)
+
 # Spring Core
-- Java 11
----
 
 ### [Spring Security](./docs/spring-security.md)
 
