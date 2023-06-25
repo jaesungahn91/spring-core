@@ -30,7 +30,9 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/users/{id}")
-    public ResponseEntity<UserModel> putUser(@PathVariable Long id) {
+    public ResponseEntity<UserModel> putUser(@PathVariable Long id,
+                                             @Valid @RequestBody UserPutRequestDTO dto) {
+
         return null;
     }
 
