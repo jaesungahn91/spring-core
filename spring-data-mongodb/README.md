@@ -6,5 +6,6 @@
 ---
 
 - https://www.mongodb.com/resources/products/compatibilities/spring-boot
+- https://docs.spring.io/spring-data/mongodb/reference/
 
 ---
