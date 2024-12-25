@@ -16,10 +16,11 @@ public class UserService {
 
     public UserModel signUp(User user) {
         User userSaved = userRepository.save(user);
-        return UserModel.of(userSaved);
+        return UserModel.from(userSaved);
     }
 
     public Optional<UserModel> findById(Long id) {
-        return userRepository.findById(id).map(UserModel::of);
+        return userRepository.findById(id).map(UserModel::from);
     }
+
 }

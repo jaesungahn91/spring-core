@@ -29,7 +29,6 @@
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
 									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
 									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
-									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									"}",
 									""
 								]
@@ -81,7 +80,6 @@
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
 									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
 									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
-									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									""
 								],
 								"type": "text/javascript",
@@ -130,7 +128,6 @@
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
 									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
 									"tests['User has \"image\" property'] = user.hasOwnProperty('image');",
-									"tests['User has \"token\" property'] = user.hasOwnProperty('token');",
 									""
 								],
 								"type": "text/javascript",

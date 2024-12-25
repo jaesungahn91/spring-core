@@ -1,9 +1,12 @@
 package io.github.js.domain.user;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+@Getter
 @Table(name = "users")
 @Entity
 public class User {
@@ -16,7 +19,7 @@ public class User {
     private Email email;
 
     @Embedded
-    private Nickname nickname;
+    private Profile profile;
 
     @Embedded
     private Password password;
@@ -24,29 +27,18 @@ public class User {
     protected User() {
     }
 
-    private User(Email email, Nickname nickname, Password password) {
+    private User(Email email, UserName userName, Password password) {
         this.email = email;
-        this.nickname = nickname;
+        this.profile = new Profile(userName);
         this.password = password;
     }
 
-    public static User of(Email email, Nickname nickname, Password password) {
-        return new User(email, nickname, password);
+    public static User of(Email email, UserName userName, Password password) {
+        return new User(email, userName, password);
     }
 
-    public Long getId() {
-        return id;
+    public UserName getUserName() {
+        return profile.getUserName();
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
-    public Nickname getNickname() {
-        return nickname;
-    }
-
-    public Password getPassword() {
-        return password;
-    }
 }

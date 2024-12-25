@@ -1,16 +1,18 @@
 package io.github.js.application.user;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import io.github.js.domain.user.Email;
-import io.github.js.domain.user.Nickname;
+import io.github.js.domain.user.UserName;
 import io.github.js.domain.user.Password;
 import io.github.js.domain.user.User;
 import lombok.Getter;
 
 
 import javax.validation.constraints.NotBlank;
-import java.util.Objects;
 
-
+@JsonTypeName("user")
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 @Getter
 public class UserPostRequestDTO {
 
@@ -19,31 +21,19 @@ public class UserPostRequestDTO {
     @NotBlank
     private final String password;
     @NotBlank
-    private final String nickname;
+    private final String username;
 
-    public UserPostRequestDTO(String email, String password, String nickname) {
+    public UserPostRequestDTO(String email, String password, String username) {
         this.email = email;
         this.password = password;
-        this.nickname = nickname;
+        this.username = username;
     }
 
     public User toEntity() {
         return User.of(
                 new Email(email),
-                new Nickname(nickname),
+                new UserName(username),
                 new Password(password));
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserPostRequestDTO that = (UserPostRequestDTO) o;
-        return Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(nickname, that.nickname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, password, nickname);
-    }
 }

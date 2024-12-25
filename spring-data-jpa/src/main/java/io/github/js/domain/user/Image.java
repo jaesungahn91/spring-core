@@ -1,27 +1,23 @@
 package io.github.js.domain.user;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import static lombok.AccessLevel.PROTECTED;
+
+@NoArgsConstructor(access = PROTECTED)
 @EqualsAndHashCode(of = "address")
 @Embeddable
-public class Email {
+public class Image {
 
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "image")
     private String address;
 
-    protected Email() {
-    }
-
-    public Email(String address) {
+    public Image(String address) {
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return address;
     }
 
 }
