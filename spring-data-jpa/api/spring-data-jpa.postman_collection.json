@@ -154,12 +154,13 @@
 							"raw": "{\"user\":{\"email\":\"{{EMAIL}}\"}}"
 						},
 						"url": {
-							"raw": "{{APIURL}}/user",
+							"raw": "{{APIURL}}/users/{{userId}}",
 							"host": [
 								"{{APIURL}}"
 							],
 							"path": [
-								"user"
+								"users",
+								"{{userId}}"
 							]
 						}
 					},
