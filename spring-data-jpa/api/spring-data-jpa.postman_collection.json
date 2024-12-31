@@ -25,6 +25,7 @@
 									"",
 									"var user = responseJSON.user || {};",
 									"",
+									"pm.globals.set('userId', user.id);",
 									"tests['User has \"email\" property'] = user.hasOwnProperty('email');",
 									"tests['User has \"username\" property'] = user.hasOwnProperty('username');",
 									"tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
@@ -100,12 +101,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{APIURL}}/user",
+							"raw": "{{APIURL}}/users/{{userId}}",
 							"host": [
 								"{{APIURL}}"
 							],
 							"path": [
-								"user"
+								"users",
+								"{{userId}}"
 							]
 						}
 					},
