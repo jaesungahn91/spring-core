@@ -4,7 +4,9 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import static java.util.Optional.ofNullable;
 import static javax.persistence.GenerationType.IDENTITY;
+import static org.springframework.util.StringUtils.hasText;
 
 @Getter
 @Table(name = "users")
@@ -39,6 +41,12 @@ public class User {
 
     public UserName getUserName() {
         return profile.getUserName();
+    }
+
+    public void update(User updatedUser) {
+        if (hasText(updatedUser.getEmail().toString())) {
+            this.email = updatedUser.getEmail();
+        }
     }
 
 }

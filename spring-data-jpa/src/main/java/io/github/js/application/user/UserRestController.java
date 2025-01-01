@@ -32,8 +32,7 @@ public class UserRestController {
     @PutMapping(value = "/users/{id}")
     public ResponseEntity<UserModel> putUser(@PathVariable Long id,
                                              @Valid @RequestBody UserPutRequestDTO dto) {
-
-        return null;
+        return ok(userService.updateUser(id, dto.toEntity()));
     }
 
     @DeleteMapping(value = "/users/{id}")
