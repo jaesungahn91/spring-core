@@ -35,9 +35,4 @@ public class UserRestController {
         return ok(userService.updateUser(id, dto.toEntity()));
     }
 
-    @DeleteMapping(value = "/users/{id}")
-    public void deleteUser(@PathVariable Long id) {
-
-    }
-
 }
