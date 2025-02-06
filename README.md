@@ -22,6 +22,8 @@
 
 ### [Spring Data MongoDB](/spring-data-mongodb/README.md)
 
+### [Spring Batch](/spring-batch/README.md)
+
 ### [Spring Data JDBC](/docs/spring-data-jdbc-jooq.md)
 
 - jOOQ
