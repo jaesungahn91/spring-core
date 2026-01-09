@@ -42,6 +42,17 @@
   },
 
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/user-prompt-submit-hook.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
@@ -110,6 +121,7 @@
 
   "companyAnnouncements": [
     "Spring Boot 멀티 모듈 레퍼런스 프로젝트입니다",
+    "Issue-Driven Workflow: 모든 작업은 Issue 번호(#123) 포함 필수",
     "작업 후 허가 없이 커밋 금지",
     "코드 리뷰 가이드: .claude/rules/ 참고"
   ],

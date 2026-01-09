@@ -10,6 +10,7 @@ Agents는 특정 작업을 자동화하는 전문화된 AI 어시스턴트입니
 
 | Agent | 설명 | 사용 도구 | 사용 시점 |
 |-------|------|----------|----------|
+ | `issue-workflow` | Issue-Driven Workflow 자동화 | gh, git, Read, Write, Edit | 코드 변경 작업 시작 시 (자동) |
 | `code-reviewer` | Spring Boot 코드 리뷰 전문 | Read, Grep, Glob, git | 코드 변경 후 |
 | `test-fixer` | 테스트 실패 진단 및 수정 | Read, Edit, gradle, git | 테스트 실패 시 |
 

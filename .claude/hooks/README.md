@@ -6,6 +6,7 @@
 
 | 스크립트 | 이벤트 | 목적 |
 |---------|--------|------|
+| `user-prompt-submit-hook.sh` | UserPromptSubmit | Issue-Driven Workflow 강제 (Issue 번호 필수) |
 | `validate-bash.sh` | PreToolUse(Bash) | 위험한 Bash 명령어 차단 |
 | `check-secrets.sh` | PreToolUse(Write/Edit) | 시크릿 하드코딩 방지 |
 | `format-java.sh` | PostToolUse(Edit/Write) | Java 파일 자동 포맷팅 |

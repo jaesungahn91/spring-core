@@ -24,6 +24,7 @@ Claude가 `paths` 패턴과 매칭되는 파일을 다룰 때 해당 rule이 컨
 
 | Rule | 적용 대상 | 설명 |
 |------|----------|------|
+| `workflow.md` | `**/*.java` | Issue-Driven Workflow (Issue 번호 필수) |
 | `api-design.md` | `*/application/**/*.java` | REST API 설계 규칙 |
 | `java-style.md` | `*/src/**/*.java` | Java 코드 스타일 |
 | `testing.md` | `*/test/**/*.java` | 테스트 작성 규칙 |
