@@ -1,0 +1,56 @@
+name: 문서 개선
+description: 문서 개선 또는 오류 수정을 제안해주세요.
+title: "[Docs] "
+labels: ["type: docs"]
+body:
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: 문서 유형
+      options:
+        - README.md
+        - CLAUDE.md
+        - API 문서 (REST Docs / Postman)
+        - 코드 주석
+        - 기타
+    validations:
+      required: true
+
+  - type: input
+    id: file-path
+    attributes:
+      label: 파일 경로
+      description: 수정이 필요한 파일 경로
+      placeholder: 예) spring-data-jpa/README.md
+    validations:
+      required: false
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: 문제점
+      description: 현재 문서의 어떤 부분이 개선이 필요한가요?
+      placeholder: 예) REST Docs 빌드 명령어가 누락되어 있습니다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 개선 제안
+      description: 어떻게 개선하면 좋을까요?
+      placeholder: |
+        다음 섹션 추가 제안:
+        ### REST Docs 빌드
+        ```bash
+        ./gradlew asciidoctor
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 추가 정보
+    validations:
+      required: false

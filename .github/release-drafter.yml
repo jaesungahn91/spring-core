@@ -1,0 +1,62 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'type: feature'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'type: bug'
+  - title: '📚 Documentation'
+    labels:
+      - 'type: docs'
+  - title: '🧪 Tests'
+    labels:
+      - 'type: test'
+  - title: '♻️ Refactoring'
+    labels:
+      - 'type: tech-debt'
+  - title: '🔧 Maintenance'
+    labels:
+      - 'type: chore'
+      - 'dependencies'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-title-escapes: '\<*_&'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+      - 'breaking'
+  minor:
+    labels:
+      - 'type: feature'
+      - 'minor'
+  patch:
+    labels:
+      - 'type: bug'
+      - 'type: docs'
+      - 'type: test'
+      - 'type: chore'
+      - 'dependencies'
+  default: patch
+template: |
+  ## Changes by Module
+
+  ### Spring Security JWT
+  $CHANGES
+
+  ### Spring Data JPA
+  $CHANGES
+
+  ### Spring REST Docs
+  $CHANGES
+
+  ### Spring Data MongoDB
+  $CHANGES
+
+  ### Spring Batch
+  $CHANGES
+
+  ## Contributors
+
+  $CONTRIBUTORS

@@ -1,0 +1,48 @@
+name: Mark Stale Issues and PRs
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 자정 UTC
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v8
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Issues
+          days-before-issue-stale: 60
+          days-before-issue-close: 14
+          stale-issue-label: 'stale'
+          stale-issue-message: |
+            이 Issue는 60일 동안 활동이 없어 자동으로 stale로 표시되었습니다.
+            14일 내에 활동이 없으면 자동으로 닫힙니다.
+            여전히 유효한 Issue라면 댓글을 남겨주세요.
+          close-issue-message: |
+            이 Issue는 활동이 없어 자동으로 닫혔습니다.
+            여전히 유효하다면 Issue를 다시 열어주세요.
+
+          # Pull Requests
+          days-before-pr-stale: 30
+          days-before-pr-close: 7
+          stale-pr-label: 'stale'
+          stale-pr-message: |
+            이 PR은 30일 동안 활동이 없어 자동으로 stale로 표시되었습니다.
+            7일 내에 활동이 없으면 자동으로 닫힙니다.
+            작업을 계속하려면 업데이트해주세요.
+          close-pr-message: |
+            이 PR은 활동이 없어 자동으로 닫혔습니다.
+            작업을 계속하려면 PR을 다시 열어주세요.
+
+          # Exemptions
+          exempt-issue-labels: 'pinned,security,bug'
+          exempt-pr-labels: 'pinned,security'
+          exempt-milestones: true
+          exempt-all-assignees: true

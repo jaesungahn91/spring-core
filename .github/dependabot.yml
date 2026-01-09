@@ -1,0 +1,89 @@
+version: 2
+updates:
+  # Gradle dependencies for Spring Boot 2.7.x modules
+  - package-ecosystem: "gradle"
+    directory: "/spring-security-jwt"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "jaesung-ahn"
+    labels:
+      - "dependencies"
+      - "module: security-jwt"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  - package-ecosystem: "gradle"
+    directory: "/spring-data-jpa"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "jaesung-ahn"
+    labels:
+      - "dependencies"
+      - "module: data-jpa"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "gradle"
+    directory: "/spring-rest-docs"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "jaesung-ahn"
+    labels:
+      - "dependencies"
+      - "module: rest-docs"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # Gradle dependencies for Spring Boot 3.3.x modules
+  - package-ecosystem: "gradle"
+    directory: "/spring-data-mongodb"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "jaesung-ahn"
+    labels:
+      - "dependencies"
+      - "module: data-mongodb"
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: "gradle"
+    directory: "/spring-batch"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "jaesung-ahn"
+    labels:
+      - "dependencies"
+      - "module: batch"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "jaesung-ahn"
+    labels:
+      - "dependencies"
+      - "type: chore"
+    commit-message:
+      prefix: "chore(ci)"

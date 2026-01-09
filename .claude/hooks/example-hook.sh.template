@@ -1,0 +1,26 @@
+#!/bin/bash
+# Example hook template
+# 사용하려면: .template 제거, 실행 권한 부여 (chmod +x)
+
+set -euo pipefail
+
+# Read JSON input from stdin
+INPUT=$(cat)
+
+# Extract tool info
+TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // empty')
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
+
+# Your validation logic here
+# Example: Check file extension
+if [[ "$FILE_PATH" =~ \.java$ ]]; then
+  echo "Processing Java file: $FILE_PATH" >&2
+fi
+
+# Success: allow operation
+echo '{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "allow"}}' >&2
+exit 0
+
+# Or block operation:
+# echo '{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "Reason here"}}' >&2
+# exit 2

@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Commit-msg hook for spring-core project
+# - Validates commit message format: <type>: <description>
+# - Enforces project commit conventions
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Skip validation for merge commits
+if echo "$COMMIT_MSG" | grep -q "^Merge branch"; then
+  exit 0
+fi
+
+# Valid commit types
+VALID_TYPES="feat|fix|docs|test|chore|refactor|style|perf|build|ci"
+
+# Pattern: <type>: <description>
+PATTERN="^($VALID_TYPES): .{1,}"
+
+if ! echo "$COMMIT_MSG" | grep -Eq "$PATTERN"; then
+  echo "Invalid commit message format"
+  echo ""
+  echo "Commit message must follow: <type>: <description>"
+  echo ""
+  echo "Valid types:"
+  echo "  - feat: 새로운 기능 추가"
+  echo "  - fix: 버그 수정"
+  echo "  - docs: 문서 수정"
+  echo "  - test: 테스트 추가/수정"
+  echo "  - chore: 빌드, 설정 등 기타 작업"
+  echo "  - refactor: 리팩토링"
+  echo "  - style: 코드 포맷팅"
+  echo "  - perf: 성능 개선"
+  echo "  - build: 빌드 시스템 수정"
+  echo "  - ci: CI 설정 수정"
+  echo ""
+  echo "Examples:"
+  echo "  feat: 유저 생성 API 추가"
+  echo "  fix: 이메일 중복 검증 버그 수정"
+  echo "  docs: README.md 업데이트"
+  echo ""
+  echo "Your message:"
+  echo "  $COMMIT_MSG"
+  exit 1
+fi
+
+# Check minimum description length
+DESCRIPTION=$(echo "$COMMIT_MSG" | sed -E "s/^($VALID_TYPES): //")
+if [ ${#DESCRIPTION} -lt 5 ]; then
+  echo "Commit description too short (minimum 5 characters)"
+  echo "Your description: $DESCRIPTION"
+  exit 1
+fi
+
+# Check maximum line length (first line)
+FIRST_LINE=$(echo "$COMMIT_MSG" | head -n1)
+if [ ${#FIRST_LINE} -gt 100 ]; then
+  echo "Warning: First line is longer than 100 characters (${#FIRST_LINE})"
+  echo "Consider keeping it concise."
+fi
+
+echo "Commit message format valid"
+exit 0

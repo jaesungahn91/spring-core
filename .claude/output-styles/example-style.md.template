@@ -1,0 +1,45 @@
+---
+name: Example Style
+description: Example output style template
+keep-coding-instructions: true
+---
+
+# Example Output Style Template
+
+이 파일은 output style 작성 예제입니다. 실제 사용하려면:
+1. `.template` 확장자 제거
+2. frontmatter 수정
+3. 응답 형식 정의
+
+## Core Principles
+
+1. **원칙 1**: 설명
+2. **원칙 2**: 설명
+
+## Response Format
+
+### 코드 변경 시
+```markdown
+## Changes
+- file:line - 변경 내용
+
+## Reason
+이유 설명
+```
+
+### 에러 디버깅 시
+```markdown
+## Cause
+원인 한 줄
+
+## Fix
+수정 코드
+```
+
+## Examples
+
+### ❌ Before (기본 스타일)
+장황한 설명...
+
+### ✅ After (이 스타일)
+간결한 설명

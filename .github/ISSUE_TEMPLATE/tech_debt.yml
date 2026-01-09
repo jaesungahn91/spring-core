@@ -1,0 +1,77 @@
+name: 기술 부채 / 리팩토링
+description: 코드 품질 개선, 기술 부채 해소를 제안해주세요.
+title: "[Tech Debt] "
+labels: ["type: tech-debt"]
+body:
+  - type: dropdown
+    id: module
+    attributes:
+      label: 대상 모듈
+      options:
+        - spring-security-jwt
+        - spring-data-jpa
+        - spring-rest-docs
+        - spring-data-mongodb
+        - spring-batch
+        - 전체
+        - 공통/기타
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 카테고리
+      options:
+        - 코드 중복 제거
+        - 아키텍처 개선
+        - 테스트 커버리지 개선
+        - 의존성 업데이트
+        - 성능 개선
+        - 보안 강화
+        - 기타
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-state
+    attributes:
+      label: 현재 상태
+      description: 개선이 필요한 현재 코드/구조를 설명해주세요.
+      placeholder: |
+        예) UserService와 OrderService에서 동일한 이메일 검증 로직이 중복됩니다.
+        - UserService.validateEmail()
+        - OrderService.validateEmail()
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 개선 방안
+      description: 어떻게 리팩토링하면 좋을까요?
+      placeholder: |
+        - EmailValidator 유틸리티 클래스 생성
+        - 공통 검증 로직 추출
+        - 각 서비스에서 EmailValidator 사용
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: 영향 범위
+      description: 이 변경이 미치는 영향은?
+      placeholder: |
+        - 변경 파일: UserService.java, OrderService.java
+        - 테스트 수정 필요: UserServiceTest, OrderServiceTest
+        - Breaking change: 없음
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 추가 정보
+    validations:
+      required: false

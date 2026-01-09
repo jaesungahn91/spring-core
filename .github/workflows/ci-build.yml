@@ -1,0 +1,56 @@
+name: CI - Build
+
+on:
+  pull_request:
+    branches: [ develop ]
+  push:
+    branches: [ develop ]
+
+jobs:
+  build-matrix:
+    name: Build ${{ matrix.module }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module:
+          - spring-security-jwt
+          - spring-data-jpa
+          - spring-rest-docs
+          - spring-data-mongodb
+          - spring-batch
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK for ${{ matrix.module }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{
+            (matrix.module == 'spring-data-mongodb' || matrix.module == 'spring-batch')
+            && '17' || '11'
+          }}
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ${{ matrix.module }}/gradlew
+
+      - name: Build ${{ matrix.module }}
+        run: |
+          cd ${{ matrix.module }}
+          ./gradlew build -x test --no-daemon --stacktrace
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.module }}
+          path: ${{ matrix.module }}/build/libs/*.jar
+          retention-days: 7
+
+      - name: Build Summary
+        run: |
+          echo "### Build completed for ${{ matrix.module }}" >> $GITHUB_STEP_SUMMARY
+          echo "Artifacts uploaded successfully." >> $GITHUB_STEP_SUMMARY

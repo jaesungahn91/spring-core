@@ -1,0 +1,37 @@
+---
+name: example-agent
+description: Example agent template for custom tasks
+tools: Read, Grep, Bash(git:*)
+model: sonnet
+---
+
+# Example Agent Template
+
+이 파일은 agent 작성 예제입니다. 실제 사용하려면:
+1. `.template` 확장자 제거
+2. frontmatter 수정 (name, tools 등)
+3. 작업 프로세스 정의
+
+## Process
+
+1. **정보 수집**
+   - Read, Grep로 코드 분석
+
+2. **분석**
+   - 패턴 파악
+
+3. **결과 제공**
+   - 구조화된 출력
+
+## Output Format
+
+```markdown
+## Summary
+[요약]
+
+## Issues
+- file:line - 문제점
+
+## Recommendations
+- 개선 제안
+```

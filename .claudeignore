@@ -1,0 +1,54 @@
+# Claude Code ignore patterns
+# Files and directories to exclude from Claude's context
+
+# Build outputs
+**/build/
+**/target/
+**/.gradle/
+**/bin/
+**/out/
+
+# Dependencies
+**/node_modules/
+**/.pnp/
+
+# IDE
+**/.idea/
+**/.vscode/
+**/.eclipse/
+**/.settings/
+
+# Logs
+**/*.log
+**/logs/
+
+# Test reports
+**/test-results/
+**/test-reports/
+**/coverage/
+
+# Temporary files
+**/.DS_Store
+**/Thumbs.db
+**/*~
+**/*.swp
+**/*.swo
+
+# Large files
+**/*.jar
+**/*.war
+**/*.ear
+**/*.zip
+**/*.tar.gz
+**/*.pdf
+**/*.dmg
+
+# Secrets
+.env*
+secrets/
+**/*secret*
+**/*credential*
+
+# Generated docs (optional - uncomment if too large)
+# **/static/docs/
+# **/build/docs/

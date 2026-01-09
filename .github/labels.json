@@ -1,0 +1,57 @@
+[
+  {
+    "name": "type: feature",
+    "color": "0E8A16",
+    "description": "새로운 기능 추가"
+  },
+  {
+    "name": "type: bug",
+    "color": "D73A4A",
+    "description": "버그 수정"
+  },
+  {
+    "name": "type: docs",
+    "color": "0075CA",
+    "description": "문서 개선"
+  },
+  {
+    "name": "type: chore",
+    "color": "FEF2C0",
+    "description": "빌드, 설정 등 기타 작업"
+  },
+  {
+    "name": "type: test",
+    "color": "FBCA04",
+    "description": "테스트 추가 또는 수정"
+  },
+  {
+    "name": "type: refactor",
+    "color": "D4C5F9",
+    "description": "리팩토링"
+  },
+  {
+    "name": "module: security-jwt",
+    "color": "C2E0C6",
+    "description": "spring-security-jwt 모듈"
+  },
+  {
+    "name": "module: data-jpa",
+    "color": "C2E0C6",
+    "description": "spring-data-jpa 모듈"
+  },
+  {
+    "name": "module: rest-docs",
+    "color": "C2E0C6",
+    "description": "spring-rest-docs 모듈"
+  },
+  {
+    "name": "module: data-mongodb",
+    "color": "C2E0C6",
+    "description": "spring-data-mongodb 모듈"
+  },
+  {
+    "name": "module: batch",
+    "color": "C2E0C6",
+    "description": "spring-batch 모듈"
+  }
+]

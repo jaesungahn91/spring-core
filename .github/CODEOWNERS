@@ -1,0 +1,32 @@
+# CODEOWNERS
+# 코드 오너십 정의 - PR 생성 시 자동으로 리뷰어 할당
+
+# 전체 프로젝트 기본 오너
+* @jaesung-ahn
+
+# 모듈별 오너
+/spring-security-jwt/ @jaesung-ahn
+/spring-data-jpa/ @jaesung-ahn
+/spring-rest-docs/ @jaesung-ahn
+/spring-data-mongodb/ @jaesung-ahn
+/spring-batch/ @jaesung-ahn
+
+# 설정 파일
+*.gradle @jaesung-ahn
+*.properties @jaesung-ahn
+*.yml @jaesung-ahn
+
+# CI/CD
+/.github/workflows/ @jaesung-ahn
+
+# 문서
+*.md @jaesung-ahn
+/docs/ @jaesung-ahn
+
+# Claude Code 설정
+/.claude/ @jaesung-ahn
+CLAUDE.md @jaesung-ahn
+
+# 보안 관련
+/secrets/ @jaesung-ahn
+*.env* @jaesung-ahn

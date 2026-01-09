@@ -1,0 +1,70 @@
+name: Code Quality
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate commit messages
+        run: |
+          echo "Validating commit messages..."
+          COMMITS=$(git log --format=%s origin/develop..HEAD)
+          PATTERN="^(feat|fix|docs|test|chore|refactor|style|perf|build|ci): .+"
+
+          while IFS= read -r commit; do
+            if [[ ! $commit =~ $PATTERN ]]; then
+              echo "Invalid commit message: $commit"
+              echo "Commit messages must follow: <type>: <description>"
+              echo "Valid types: feat, fix, docs, test, chore, refactor, style, perf, build, ci"
+              exit 1
+            else
+              echo "Valid: $commit"
+            fi
+          done <<< "$COMMITS"
+
+      - name: Check Java file formatting
+        run: |
+          echo "Checking for common formatting issues..."
+          if git diff origin/develop --name-only | grep '\.java$' | xargs grep -P '\t' 2>/dev/null; then
+            echo "Tab characters found in Java files. Please use spaces."
+            exit 1
+          fi
+          echo "No formatting issues found"
+
+      - name: Verify no merge conflicts
+        run: |
+          echo "Checking for merge conflict markers..."
+          if git diff origin/develop --name-only | xargs grep -l "^<<<<<<< \|^======= \|^>>>>>>> " 2>/dev/null; then
+            echo "Merge conflict markers found"
+            exit 1
+          fi
+          echo "No merge conflicts"
+
+      - name: Check for secrets
+        run: |
+          echo "Checking for potential secrets..."
+          PATTERN="(password|secret|key|token).*=.*['\"].*['\"]"
+
+          if git diff origin/develop --name-only | grep -E '\.(java|properties|yml|yaml)$' | xargs grep -iE "$PATTERN" 2>/dev/null; then
+            echo "Potential secrets found. Please review carefully."
+          else
+            echo "No obvious secrets detected"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Code Quality Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit message validation: completed" >> $GITHUB_STEP_SUMMARY
+          echo "- Formatting check: completed" >> $GITHUB_STEP_SUMMARY
+          echo "- Merge conflict check: completed" >> $GITHUB_STEP_SUMMARY

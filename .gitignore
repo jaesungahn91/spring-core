@@ -5,6 +5,18 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Claude Code ###
+.claude/settings.local.json
+.claude.local.md
+*.local.md
+
+### Secrets ###
+.env
+.env.*
+secrets/
+**/secrets/
+application-secret.properties
+
 ### STS ###
 .apt_generated
 .classpath

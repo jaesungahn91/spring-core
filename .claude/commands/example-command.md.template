@@ -1,0 +1,29 @@
+---
+description: Example command template
+argument-hint: [optional-arg]
+allowed-tools: Bash(./gradlew:*), Read
+---
+
+# Example Command Template
+
+이 파일은 command 작성 예제입니다. 실제 사용하려면:
+1. `.template` 확장자 제거
+2. frontmatter 수정
+3. 작업 로직 작성
+
+## Available Modules
+
+!`ls -d spring-* 2>/dev/null | xargs -n1 basename`
+
+## Your Task
+
+$1 인자가 있을 때:
+- 해당 모듈에 대한 작업 수행
+
+$1 인자가 없을 때:
+- 모든 모듈에 대해 작업 수행
+
+## Output
+
+- 작업 결과 요약
+- 성공/실패 여부

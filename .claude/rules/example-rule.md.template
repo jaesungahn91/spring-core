@@ -1,0 +1,27 @@
+---
+paths: "*/src/main/java/io/github/js/application/**/*.java"
+---
+
+# Example Rule Template
+
+이 파일은 rule 작성 예제입니다. 실제 사용하려면:
+1. `.template` 확장자 제거
+2. `paths` 패턴 수정
+3. 규칙 작성
+
+## Rule Example
+
+### RESTful API Naming
+- URL은 소문자, 복수형 명사 사용
+- 하이픈으로 단어 구분
+
+```
+✅ GET /users/{id}
+❌ GET /getUser/{id}
+```
+
+### HTTP Status Codes
+- 200: 조회 성공
+- 201: 생성 성공
+- 400: 잘못된 요청
+- 404: 리소스 없음
