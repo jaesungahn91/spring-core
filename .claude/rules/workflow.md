@@ -19,8 +19,11 @@ paths: "**/*.java"
      --label "type:feature|bug|docs|tech-debt" \
      --label "module:..." \
      --label "priority:medium" \
+     --assignee @me \
      --body "작업 상세 내용"
    ```
+
+   **참고**: `--assignee @me`는 명시적으로 포함하지만, GitHub Actions도 자동으로 할당함
 
 2. **Issue 번호 저장 및 안내**
    - "Created Issue #123 for this work"
