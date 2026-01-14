@@ -2,9 +2,9 @@ package io.github.js.application.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.js.domain.jwt.JWTDeserializer;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -35,24 +35,26 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.headers().frameOptions().sameOrigin();
-        http.csrf().disable();
-        http.cors();
-        http.formLogin().disable();
-        http.logout().disable();
-        http.httpBasic().disable();
-        http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+        http.csrf(csrf -> csrf.disable());
+        http.cors(cors -> {});
+        http.formLogin(formLogin -> formLogin.disable());
+        http.logout(logout -> logout.disable());
+        http.httpBasic(httpBasic -> httpBasic.disable());
+        http.sessionManagement(session -> session.sessionCreationPolicy(STATELESS));
         http.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.authorizeRequests()
-                .antMatchers(POST, "/users", "/users/login").permitAll()
-                .anyRequest().authenticated();
-        http.exceptionHandling()
+        http.authorizeHttpRequests(authz -> authz
+                .requestMatchers(POST, "/users", "/users/login").permitAll()
+                .anyRequest().authenticated()
+        );
+        http.exceptionHandling(exception -> exception
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     sendError(response, "권한이 유효하지 않습니다.", 403);
                 })
                 .authenticationEntryPoint((request, response, accessDeniedException) -> {
                     sendError(response, "토큰이 유효하지 않습니다.", 401);
-                });
+                })
+        );
 
         return http.build();
     }
@@ -85,7 +87,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
 }
 
-@ConstructorBinding
+@Getter
 @ConfigurationProperties("security")
 class SecurityConfigurationProperties {
     private final List<String> allowedOrigins;
@@ -94,7 +96,4 @@ class SecurityConfigurationProperties {
         this.allowedOrigins = allowedOrigins;
     }
 
-    public List<String> getAllowedOrigins() {
-        return allowedOrigins;
-    }
 }

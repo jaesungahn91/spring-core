@@ -3,9 +3,9 @@ package io.github.js.domain.user;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-import static javax.persistence.GenerationType.*;
+import static jakarta.persistence.GenerationType.*;
 
 @Getter
 @Entity

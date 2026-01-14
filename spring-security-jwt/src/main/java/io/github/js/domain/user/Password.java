@@ -3,8 +3,8 @@ package io.github.js.domain.user;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 @Getter
 @Embeddable
