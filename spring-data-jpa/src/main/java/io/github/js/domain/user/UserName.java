@@ -2,8 +2,8 @@ package io.github.js.domain.user;
 
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 @EqualsAndHashCode(of = "nickname")
 @Embeddable

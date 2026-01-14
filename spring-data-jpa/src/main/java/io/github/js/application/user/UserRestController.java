@@ -4,7 +4,7 @@ import io.github.js.domain.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.net.URI;
 
 import static org.springframework.http.ResponseEntity.*;

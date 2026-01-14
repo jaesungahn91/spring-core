@@ -59,9 +59,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = 유저_수정_요청(user.getId());
 
         // then
-        assertAll(
-
-        );
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 
     public static ExtractableResponse<Response> 유저_생성_요청() {

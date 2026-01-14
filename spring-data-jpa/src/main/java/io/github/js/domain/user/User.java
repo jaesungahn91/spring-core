@@ -2,10 +2,10 @@ package io.github.js.domain.user;
 
 import lombok.Getter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import static java.util.Optional.ofNullable;
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static org.springframework.util.StringUtils.hasText;
 
 @Getter

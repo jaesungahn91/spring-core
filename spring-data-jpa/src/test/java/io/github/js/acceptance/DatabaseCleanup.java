@@ -6,10 +6,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ActiveProfiles;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,6 +25,7 @@ public class DatabaseCleanup implements InitializingBean {
 
     private final Map<String, String> specificTableNames = ImmutableMap.<String, String>builder()
             .put("user", "users")
+            .put("article", "articles")
             .build();
 
     @Override

@@ -9,14 +9,14 @@ import io.github.js.domain.user.User;
 import lombok.Getter;
 
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @JsonTypeName("user")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 @Getter
 public class UserPostRequestDTO {
 
-    @javax.validation.constraints.Email
+    @jakarta.validation.constraints.Email
     private final String email;
     @NotBlank
     private final String password;
