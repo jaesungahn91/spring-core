@@ -100,10 +100,6 @@
     ]
   },
 
-  "env": {
-    "GRADLE_USER_HOME": "${HOME}/.gradle",
-    "JAVA_HOME": "${JAVA_HOME}"
-  },
 
   "sandbox": {
     "enabled": false,
