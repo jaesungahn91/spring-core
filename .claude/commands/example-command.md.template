@@ -1,15 +1,24 @@
 ---
-description: Example command template
+description: Example command template (DEPRECATED - Use Skills instead)
 argument-hint: [optional-arg]
 allowed-tools: Bash(./gradlew:*), Read
 ---
 
-# Example Command Template
+# Example Command Template (⚠️ Deprecated)
+
+> **이 템플릿은 더 이상 사용되지 않습니다.**
+> 새로운 커맨드는 `.claude/skills/<skill-name>/SKILL.md` 형식으로 작성하세요.
+>
+> Skills 템플릿 위치: `.claude/skills/`
+
+## Legacy 사용 방법
 
 이 파일은 command 작성 예제입니다. 실제 사용하려면:
 1. `.template` 확장자 제거
 2. frontmatter 수정
 3. 작업 로직 작성
+
+**권장**: 대신 Skills를 사용하세요.
 
 ## Available Modules
 

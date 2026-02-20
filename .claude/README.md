@@ -20,10 +20,10 @@
 │   ├── code-reviewer.md
 │   └── test-fixer.md
 │
-├── commands/                  # 커스텀 명령어
+├── commands/                  # 커스텀 명령어 (⚠️ Deprecated - Skills 사용 권장)
 │   ├── README.md
-│   ├── build.md
-│   └── test.md
+│   ├── build.md              # → skills/build/SKILL.md로 마이그레이션됨
+│   └── example-command.md.template
 │
 ├── hooks/                     # 이벤트 훅 스크립트
 │   ├── README.md
@@ -36,7 +36,14 @@
 │   └── teaching.md
 │
 └── skills/                    # 재사용 가능한 스킬
+    ├── build/
+    │   └── SKILL.md
+    ├── create-issue/
+    │   └── SKILL.md
+    ├── create-pr/
+    │   └── SKILL.md
     └── run-module-tests/
+        └── SKILL.md
 ```
 
 ## 주요 파일
@@ -47,7 +54,7 @@
 
 ```json
 {
-  "model": "claude-sonnet-4-5-20250929",
+  "model": "claude-sonnet-4-6",
   "permissions": { ... },
   "hooks": { ... },
   "outputStyle": "Default"
@@ -68,10 +75,16 @@
 ```json
 {
   "permissions": {
-    "allow": ["Bash(npm:*)"]
+    "allow": ["Bash(npm *)"]
   }
 }
 ```
+
+**주요 차이점:**
+- `defaultMode`: 프로젝트 설정(`settings.json`)은 `"default"`, 로컬 설정은 `"acceptEdits"`
+  - `default`: 도구 사용 시 매번 권한 확인
+  - `acceptEdits`: Edit/Write 도구는 자동 승인, Bash 등은 확인 필요
+  - 로컬 설정이 프로젝트 설정을 오버라이드
 
 ## 구성 요소 설명
 
@@ -95,15 +108,18 @@
 
 [자세한 내용은 agents/README.md 참고]
 
-### 3. Commands
+### 3. Commands (⚠️ Deprecated)
+
+> **이 기능은 Skills로 통합되었습니다.**
+> 기존 commands는 하위 호환성을 위해 동작하지만, 신규 작성은 Skills를 사용하세요.
 
 자주 사용하는 작업을 간단한 명령어로 실행합니다.
 
-- **위치**: `commands/*.md`
+- **위치**: `commands/*.md` → `skills/*/SKILL.md`로 마이그레이션 권장
 - **용도**: 빌드, 테스트 등 반복 작업
 - **인자**: `$1`, `$2` 등 위치 기반
 
-[자세한 내용은 commands/README.md 참고]
+[마이그레이션 가이드는 commands/README.md 참고]
 
 ### 4. Hooks
 

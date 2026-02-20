@@ -1,8 +1,38 @@
-# Commands
+# Commands (⚠️ Deprecated)
 
-프로젝트 전용 커스텀 명령어 정의입니다.
+> **중요: 이 기능은 Skills로 통합되었습니다.**
+> Commands는 하위 호환성을 위해 계속 동작하지만, 새로운 커맨드는 `.claude/skills/`에 작성하세요.
+> 자세한 내용은 [../skills/README.md](../skills/README.md)를 참고하세요.
 
-## 개요
+## 마이그레이션 가이드
+
+**기존**: `.claude/commands/my-command.md`
+```yaml
+---
+description: My command description
+argument-hint: [arg]
+allowed-tools: Bash(*)
+---
+```
+
+**신규**: `.claude/skills/my-command/SKILL.md`
+```yaml
+---
+name: my-command
+description: My command description
+argument-hint: [arg]
+allowed-tools: Bash(*)
+---
+```
+
+주요 차이점:
+1. `name:` 필드 추가 필수
+2. 디렉토리 구조 변경 (skills/명령어명/SKILL.md)
+3. 지원 파일 추가 가능 (templates, scripts 등)
+
+---
+
+## 개요 (Legacy)
 
 Commands는 자주 사용하는 작업을 간단한 명령어로 실행할 수 있게 해줍니다. 각 command는 특정 작업을 위한 템플릿 역할을 합니다.
 

@@ -1,18 +1,18 @@
 {
-  "model": "claude-sonnet-4-5-20250929",
+  "model": "claude-sonnet-4-6",
   "alwaysThinkingEnabled": true,
 
   "permissions": {
     "allow": [
-      "Bash(ls:*)",
-      "Bash(tree:*)",
-      "Bash(git diff:*)",
-      "Bash(git status:*)",
-      "Bash(git log:*)",
-      "Bash(git branch:*)",
-      "Bash(gradle build:*)",
-      "Bash(gradle test:*)",
-      "Bash(./gradlew:*)",
+      "Bash(ls *)",
+      "Bash(tree *)",
+      "Bash(git diff *)",
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(gradle build *)",
+      "Bash(gradle test *)",
+      "Bash(./gradlew *)",
       "Read(src/**)",
       "Read(.github/**)",
       "Read(*.md)",
@@ -20,10 +20,10 @@
       "Read(*.properties)"
     ],
     "ask": [
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(gh:*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh *)",
       "Edit(*.java)",
       "Write(*.java)",
       "Edit(*.md)",
@@ -47,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/user-prompt-submit-hook.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/user-prompt-submit-hook.sh",
             "timeout": 5000
           }
         ]
@@ -55,34 +55,12 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/validate-bash.sh",
-            "timeout": 5000
-          }
-        ]
-      },
-      {
         "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/check-secrets.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/check-secrets.sh",
             "timeout": 5000
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/format-java.sh",
-            "timeout": 10000
           }
         ]
       }
@@ -92,7 +70,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/session-start.sh",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh",
             "timeout": 5000
           }
         ]
