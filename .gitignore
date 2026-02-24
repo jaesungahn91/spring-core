@@ -13,6 +13,7 @@ build/
 ### Secrets ###
 .env
 .env.*
+!.env.example
 secrets/
 **/secrets/
 application-secret.properties
