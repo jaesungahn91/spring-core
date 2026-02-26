@@ -40,7 +40,7 @@ class UserImportJobTest {
     @Test
     void userImportJob_completedSuccessfully() throws Exception {
         JobParameters params = new JobParametersBuilder()
-                .addString("inputFile", "data/users.csv")
+                .addString("inputFile", "classpath:data/users.csv")
                 .toJobParameters();
 
         JobExecution execution = jobLauncherTestUtils.launchJob(params);
@@ -51,7 +51,7 @@ class UserImportJobTest {
     @Test
     void userImportJob_savesOnlyValidUsers() throws Exception {
         JobParameters params = new JobParametersBuilder()
-                .addString("inputFile", "data/users.csv")
+                .addString("inputFile", "classpath:data/users.csv")
                 .toJobParameters();
 
         jobLauncherTestUtils.launchJob(params);
@@ -63,7 +63,7 @@ class UserImportJobTest {
     @Test
     void userImportJob_stepExecution_countsCorrect() throws Exception {
         JobParameters params = new JobParametersBuilder()
-                .addString("inputFile", "data/users.csv")
+                .addString("inputFile", "classpath:data/users.csv")
                 .toJobParameters();
 
         JobExecution execution = jobLauncherTestUtils.launchJob(params);

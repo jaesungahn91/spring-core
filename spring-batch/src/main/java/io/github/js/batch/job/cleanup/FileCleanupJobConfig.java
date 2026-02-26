@@ -33,8 +33,9 @@ public class FileCleanupJobConfig {
     @Bean
     @StepScope
     public FileCleanupTasklet fileCleanupTasklet(
-            @Value("#{jobParameters['targetDirectory']}") String targetDirectory) {
-        return new FileCleanupTasklet(targetDirectory, 7);
+            @Value("#{jobParameters['targetDirectory']}") String targetDirectory,
+            @Value("#{jobParameters['retentionDays'] ?: 7}") long retentionDays) {
+        return new FileCleanupTasklet(targetDirectory, (int) retentionDays);
     }
 
 }

@@ -17,11 +17,21 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class UserImportJobConfig {
+
+    @Bean
+    public UserImportJobListener userImportJobListener() {
+        return new UserImportJobListener();
+    }
+
+    @Bean
+    public UserImportStepListener userImportStepListener() {
+        return new UserImportStepListener();
+    }
 
     @Bean
     public Job userImportJob(JobRepository jobRepository,
@@ -38,7 +48,8 @@ public class UserImportJobConfig {
                                PlatformTransactionManager transactionManager,
                                FlatFileItemReader<UserCsvDto> userCsvReader,
                                UserItemProcessor userItemProcessor,
-                               JpaItemWriter<User> userItemWriter) {
+                               JpaItemWriter<User> userItemWriter,
+                               UserImportStepListener stepListener) {
         return new StepBuilder("userImportStep", jobRepository)
                 .<UserCsvDto, User>chunk(10, transactionManager)
                 .reader(userCsvReader)
@@ -47,20 +58,21 @@ public class UserImportJobConfig {
                 .faultTolerant()
                 .skip(FlatFileParseException.class)
                 .skipLimit(5)
-                .listener(new UserImportStepListener())
+                .listener(stepListener)
                 .build();
     }
 
     @Bean
     @StepScope
     public FlatFileItemReader<UserCsvDto> userCsvReader(
-            @Value("#{jobParameters['inputFile']}") String inputFile) {
+            @Value("#{jobParameters['inputFile']}") String inputFile,
+            ResourceLoader resourceLoader) {
         BeanWrapperFieldSetMapper<UserCsvDto> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
         fieldSetMapper.setTargetType(UserCsvDto.class);
 
         return new FlatFileItemReaderBuilder<UserCsvDto>()
                 .name("userCsvReader")
-                .resource(new ClassPathResource(inputFile))
+                .resource(resourceLoader.getResource(inputFile))
                 .linesToSkip(1)
                 .delimited()
                 .names("email", "name", "age")

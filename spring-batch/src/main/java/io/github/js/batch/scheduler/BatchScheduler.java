@@ -16,17 +16,31 @@ public class BatchScheduler {
 
     private final JobLauncher jobLauncher;
     private final Job userImportJob;
+    private final Job fileCleanupJob;
 
     @Scheduled(cron = "0 0 2 * * ?")
     public void runUserImportJob() {
         try {
             JobParameters params = new JobParametersBuilder()
-                    .addString("inputFile", "data/users.csv")
+                    .addString("inputFile", "classpath:data/users.csv")
                     .addLong("time", System.currentTimeMillis())
                     .toJobParameters();
             jobLauncher.run(userImportJob, params);
         } catch (Exception e) {
             log.error("Failed to run userImportJob", e);
+        }
+    }
+
+    @Scheduled(cron = "0 0 3 * * ?")
+    public void runFileCleanupJob() {
+        try {
+            JobParameters params = new JobParametersBuilder()
+                    .addString("targetDirectory", "/tmp/batch-cleanup")
+                    .addLong("time", System.currentTimeMillis())
+                    .toJobParameters();
+            jobLauncher.run(fileCleanupJob, params);
+        } catch (Exception e) {
+            log.error("Failed to run fileCleanupJob", e);
         }
     }
 
