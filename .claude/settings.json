@@ -16,6 +16,8 @@
       "Read(src/**)",
       "Read(.github/**)",
       "Read(*.md)",
+      "Edit(**/*.md)",
+      "Write(**/*.md)",
       "Read(*.gradle)",
       "Read(*.properties)"
     ],
@@ -23,11 +25,7 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git push *)",
-      "Bash(gh *)",
-      "Edit(*.java)",
-      "Write(*.java)",
-      "Edit(*.md)",
-      "Write(*.md)"
+      "Bash(gh *)"
     ],
     "deny": [
       "Read(.env)",
@@ -38,7 +36,7 @@
       "Write(.env*)"
     ],
     "additionalDirectories": [],
-    "defaultMode": "default"
+    "defaultMode": "acceptEdits"
   },
 
   "hooks": {

@@ -12,18 +12,9 @@ paths: "**/*.java"
 
 사용자가 코드 변경을 요청하고 Issue 번호가 없으면:
 
-1. **즉시 GitHub Issue 생성**
-   ```bash
-   gh issue create \
-     --title "[Type] 작업 제목" \
-     --label "type:feature|bug|docs|tech-debt" \
-     --label "module:..." \
-     --label "priority:medium" \
-     --assignee @me \
-     --body "작업 상세 내용"
-   ```
-
-   **참고**: `--assignee @me`는 명시적으로 포함하지만, GitHub Actions도 자동으로 할당함
+1. **즉시 `create-issue` 스킬 사용**
+   - `Skill("create-issue")`로 호출
+   - Bash로 직접 `gh issue create` 실행 금지
 
 2. **Issue 번호 저장 및 안내**
    - "Created Issue #123 for this work"
