@@ -74,4 +74,23 @@ class UserImportJobTest {
         assertThat(stepExecution.getFilterCount()).isEqualTo(2);
     }
 
+    @Test
+    void userImportJob_rerun_doesNotDuplicate() throws Exception {
+        // 첫 번째 실행 → 4건 insert
+        jobLauncherTestUtils.launchJob(new JobParametersBuilder()
+                .addString("inputFile", "classpath:data/users.csv")
+                .addLong("time", 1L)
+                .toJobParameters());
+
+        // 두 번째 실행 → 동일 데이터 → 4건 update (insert 아님)
+        jobLauncherTestUtils.launchJob(new JobParametersBuilder()
+                .addString("inputFile", "classpath:data/users.csv")
+                .addLong("time", 2L)
+                .toJobParameters());
+
+        // JpaItemWriter(usePersist=true)였다면 EntityExistsException 발생
+        // UserItemWriter(upsert)이므로 중복 없이 4건 유지
+        assertThat(userRepository.count()).isEqualTo(4);
+    }
+
 }

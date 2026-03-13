@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCsvDto {
+public class UserImportDto {
 
     private String email;
     private String name;

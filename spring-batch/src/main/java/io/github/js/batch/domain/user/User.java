@@ -25,4 +25,9 @@ public class User {
         this.age = age;
     }
 
+    public void update(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
 }
