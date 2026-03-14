@@ -44,6 +44,9 @@ public class QuartzConfig {
     @Value("${batch.cleanup.cron}")
     private String cleanupCron;
 
+    @Value("${batch.user-partition.cron}")
+    private String userPartitionCron;
+
     // ── userImportJob ──────────────────────────────────────────────────────
 
     @Bean
@@ -84,6 +87,26 @@ public class QuartzConfig {
                 .forJob(userApiImportJobDetail)
                 .withIdentity("userApiImportJobTrigger")
                 .withSchedule(CronScheduleBuilder.cronSchedule(userApiImportCron)
+                        .withMisfireHandlingInstructionDoNothing())
+                .build();
+    }
+
+    // ── userPartitionJob ───────────────────────────────────────────────────
+
+    @Bean
+    public JobDetail userPartitionJobDetail() {
+        return JobBuilder.newJob(UserPartitionQuartzJob.class)
+                .withIdentity("userPartitionQuartzJob")
+                .storeDurably()
+                .build();
+    }
+
+    @Bean
+    public Trigger userPartitionJobTrigger(JobDetail userPartitionJobDetail) {
+        return TriggerBuilder.newTrigger()
+                .forJob(userPartitionJobDetail)
+                .withIdentity("userPartitionJobTrigger")
+                .withSchedule(CronScheduleBuilder.cronSchedule(userPartitionCron)
                         .withMisfireHandlingInstructionDoNothing())
                 .build();
     }
