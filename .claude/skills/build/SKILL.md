@@ -1,29 +1,20 @@
 ---
 name: build
-description: Build a specific module or all modules
+description: Build a specific module or all modules. Use when the user wants to compile, build, or package a module.
 argument-hint: [module-name]
-allowed-tools: Bash(gradle:*), Bash(ls:*)
+allowed-tools: Bash(./gradlew:*)
 ---
 
 # Build Module
 
-모듈을 빌드합니다.
+## Steps
 
-## Available Modules
+1. $1 인자가 있으면 해당 모듈만, 없으면 모든 `spring-*` 모듈 순차 빌드
+2. 각 모듈: `cd {module} && ./gradlew clean build`
+3. 결과 보고: 성공/실패, 실패 시 핵심 에러만 요약
 
-!`ls -d spring-* 2>/dev/null | xargs -n1 basename`
+## Rules
 
-## Your Task
-
-$1 인자가 있을 때:
-- 해당 모듈 디렉토리로 이동
-- `./gradlew clean build` 실행
-
-$1 인자가 없을 때:
-- 모든 spring-* 모듈 순차 빌드
-
-## Output
-
-- 빌드 성공/실패
-- 생성된 JAR 위치 (`build/libs/`)
-- 실패 시 에러 로그
+- 빌드 실패 시 전체 로그 대신 핵심 오류만 출력
+- 모든 모듈 빌드 시 한 모듈 실패해도 나머지 계속 진행
+- 생성된 JAR 위치: `{module}/build/libs/`
