@@ -38,11 +38,11 @@
 └── skills/                    # 재사용 가능한 스킬
     ├── build/
     │   └── SKILL.md
-    ├── create-issue/
+    ├── issue-create/
     │   └── SKILL.md
-    ├── create-pr/
+    ├── pr-create/
     │   └── SKILL.md
-    └── run-module-tests/
+    └── test-run-module/
         └── SKILL.md
 ```
 

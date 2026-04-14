@@ -1,5 +1,5 @@
 ---
-name: quality-check
+name: pr-quality-check
 description: PR 전 빌드 + 테스트를 일괄 실행하고 결과를 리포트한다. workflow 스킬 내부에서도 호출된다.
 argument-hint: [module-name]
 allowed-tools: Bash(./gradlew:*)

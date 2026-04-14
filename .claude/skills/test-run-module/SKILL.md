@@ -1,5 +1,5 @@
 ---
-name: run-module-tests
+name: test-run-module
 description: Runs tests for Spring Boot modules. Use when testing code changes, debugging test failures, or verifying functionality before a commit or PR.
 argument-hint: [module-name]
 allowed-tools: Bash(./gradlew:*)

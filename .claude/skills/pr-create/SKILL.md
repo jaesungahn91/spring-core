@@ -1,5 +1,5 @@
 ---
-name: create-pr
+name: pr-create
 description: Creates pull requests with proper descriptions. Use when the user wants to create a PR, submit code for review, or merge a branch into develop.
 allowed-tools: Bash(git:*), Bash(gh:*), Read
 ---

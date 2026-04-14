@@ -12,8 +12,8 @@ paths: "**/*.java"
 
 사용자가 코드 변경을 요청하고 Issue 번호가 없으면:
 
-1. **즉시 `create-issue` 스킬 사용**
-   - `Skill("create-issue")`로 호출
+1. **즉시 `issue-create` 스킬 사용**
+   - `Skill("issue-create")`로 호출
    - Bash로 직접 `gh issue create` 실행 금지
 
 2. **Issue 번호 저장 및 안내**
@@ -131,5 +131,5 @@ Claude:
 ## 관련 파일
 
 - `.claude/agents/issue-workflow.md` - Issue 워크플로우 자동화
-- `.claude/skills/create-issue/SKILL.md` - Issue 생성 참고
+- `.claude/skills/issue-create/SKILL.md` - Issue 생성 참고
 - `.github/ISSUE_TEMPLATE/` - Issue 템플릿

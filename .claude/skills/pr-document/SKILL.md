@@ -1,5 +1,5 @@
 ---
-name: document-work
+name: pr-document
 description: 현재 브랜치의 작업 내용을 분석해 이슈 댓글과 PR 본문용 작업 노트를 생성한다.
 allowed-tools: Bash(git:*), Bash(gh:*)
 ---
@@ -18,7 +18,7 @@ allowed-tools: Bash(git:*), Bash(gh:*)
    - 변경 범위 (파일/패키지)
    - 발생한 문제 및 해결 과정 (있을 경우)
 6. `gh issue comment {번호} --body "..."` 로 이슈에 완료 댓글 게시
-7. PR 본문용 "작업 노트" 섹션 텍스트를 반환 (create-pr 또는 workflow 스킬에서 사용)
+7. PR 본문용 "작업 노트" 섹션 텍스트를 반환 (pr-create 또는 workflow 스킬에서 사용)
 
 ## Rules
 

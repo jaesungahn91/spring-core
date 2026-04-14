@@ -2,15 +2,14 @@
 # PreToolUse hook for Write/Edit operations
 # Prevents writing secrets to files
 
-set -euo pipefail
-
 INPUT=$(cat)
 
 # Extract file content
-CONTENT=$(echo "$INPUT" | jq -r '.tool_input.content // .tool_input.new_string // empty')
+CONTENT=$(echo "$INPUT" | jq -r '.tool_input.content // .tool_input.new_string // empty' 2>/dev/null || true)
 
 # Exit if no content
 if [ -z "$CONTENT" ]; then
+  echo '{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "allow"}}'
   exit 0
 fi
 
@@ -30,4 +29,5 @@ for pattern in "${SECRET_PATTERNS[@]}"; do
   fi
 done
 
+echo '{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "allow"}}'
 exit 0

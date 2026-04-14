@@ -191,7 +191,7 @@ permissionMode: default
 
 ## Related Files
 
-- `.claude/skills/create-issue/SKILL.md` - Issue 생성 참고
-- `.claude/skills/create-pr/SKILL.md` - PR 생성 참고
+- `.claude/skills/issue-create/SKILL.md` - Issue 생성 참고
+- `.claude/skills/pr-create/SKILL.md` - PR 생성 참고
 - `.claude/rules/workflow.md` - Workflow 규칙
 - `.github/ISSUE_TEMPLATE/` - Issue 템플릿

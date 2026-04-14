@@ -16,8 +16,6 @@
       "Read(src/**)",
       "Read(.github/**)",
       "Read(*.md)",
-      "Edit(**/*.md)",
-      "Write(**/*.md)",
       "Read(*.gradle)",
       "Read(*.properties)"
     ],
