@@ -1,9 +1,9 @@
 package io.github.js.acceptance.user;
 
 import io.github.js.acceptance.AcceptanceTest;
-import io.github.js.application.user.UserModel;
-import io.github.js.application.user.UserPostRequestDTO;
-import io.github.js.application.user.UserPutRequestDTO;
+import io.github.js.application.user.CreateUserRequest;
+import io.github.js.application.user.UpdateUserRequest;
+import io.github.js.application.user.UserResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -18,56 +18,47 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DisplayName("유저 관련 기능")
 public class UserAcceptanceTest extends AcceptanceTest {
 
-    @DisplayName("유저 생성를 생성한다.")
+    @DisplayName("유저를 생성한다.")
     @Test
     void postUser() {
-        // when
         ExtractableResponse<Response> response = 유저_생성_요청();
 
-        // then
         assertAll(
                 () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value()),
                 () -> assertThat(response.header("Location")).isNotBlank(),
-                () -> assertThat(response.as(UserModel.class)).isNotNull()
+                () -> assertThat(response.as(UserResponse.class)).isNotNull()
         );
     }
 
     @DisplayName("유저를 조회한다.")
     @Test
     void getUser() {
-        // given
-        UserModel user = 유저_생성_요청().as(UserModel.class);
+        UserResponse user = 유저_생성_요청().as(UserResponse.class);
 
-        // when
-        ExtractableResponse<Response> response = 유저_조회_요청(user.getId());
+        ExtractableResponse<Response> response = 유저_조회_요청(user.id());
 
-        // then
         assertAll(
                 () -> assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value()),
-                () -> assertThat(response.as(UserModel.class).getId()).isEqualTo(user.getId())
+                () -> assertThat(response.as(UserResponse.class).id()).isEqualTo(user.id())
         );
-
     }
 
     @DisplayName("유저를 수정한다.")
     @Test
     void putUser() {
-        // given
-        UserModel user = 유저_생성_요청().as(UserModel.class);
+        UserResponse user = 유저_생성_요청().as(UserResponse.class);
 
-        // when
-        ExtractableResponse<Response> response = 유저_수정_요청(user.getId());
+        ExtractableResponse<Response> response = 유저_수정_요청(user.id());
 
-        // then
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
 
     public static ExtractableResponse<Response> 유저_생성_요청() {
-        UserPostRequestDTO dto = new UserPostRequestDTO("email@email.com", "1234", "nickname");
+        CreateUserRequest request = new CreateUserRequest("email@email.com", "1234", "nickname");
         return RestAssured
                 .given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(dto)
+                .body(request)
                 .when().post("/users")
                 .then().log().all()
                 .extract();
@@ -82,14 +73,13 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     public static ExtractableResponse<Response> 유저_수정_요청(long userId) {
-        UserPutRequestDTO dto = new UserPutRequestDTO("updateEmail@email.com", "updateNickname", "4321");
+        UpdateUserRequest request = new UpdateUserRequest("updateEmail@email.com", "updateNickname", "4321");
         return RestAssured
                 .given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(dto)
+                .body(request)
                 .when().put("/users/{id}", userId)
                 .then().log().all()
                 .extract();
     }
-
 }
