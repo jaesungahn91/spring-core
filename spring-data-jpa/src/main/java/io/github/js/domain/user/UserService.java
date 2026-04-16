@@ -1,6 +1,6 @@
 package io.github.js.domain.user;
 
-import io.github.js.application.user.UserModel;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,21 +14,30 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public UserModel signUp(User user) {
-        User userSaved = userRepository.save(user);
-        return UserModel.from(userSaved);
+    public User signUp(User user) {
+        return userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
-    public Optional<UserModel> findById(Long id) {
-        return userRepository.findById(id).map(UserModel::from);
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Transactional
-    public UserModel updateUser(Long id, User putUser) {
-        final var findUser = userRepository.findById(id);
-        findUser.ifPresent(user -> user.update(putUser));
-        return UserModel.from(findUser.map(userRepository::save).orElseThrow());
+    public User updateUser(Long id, User updatedUser) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
+        user.update(updatedUser);
+        return user;
     }
 
+    /**
+     * 소프트 삭제: @SQLDelete에 의해 DELETE 대신 UPDATE deleted=true 실행
+     */
+    @Transactional
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
+        userRepository.delete(user);
+    }
 }
