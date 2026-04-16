@@ -1,10 +1,12 @@
 package io.github.js.domain.user;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+@Getter
 @EqualsAndHashCode(of = "nickname")
 @Embeddable
 public class UserName {

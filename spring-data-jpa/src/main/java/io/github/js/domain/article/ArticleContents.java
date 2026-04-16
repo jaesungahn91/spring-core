@@ -20,7 +20,22 @@ public class ArticleContents {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
+    private ArticleContents(ArticleTitle title, String description, String body) {
+        this.title = title;
+        this.description = description;
+        this.body = body;
+    }
+
+    public static ArticleContents of(String title, String description, String body) {
+        return new ArticleContents(ArticleTitle.of(title), description, body);
+    }
+
+    public void update(String title, String description, String body) {
+        this.title = ArticleTitle.of(title);
+        this.description = description;
+        this.body = body;
+    }
 }
