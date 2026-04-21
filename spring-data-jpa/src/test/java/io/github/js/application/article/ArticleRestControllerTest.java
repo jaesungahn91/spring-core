@@ -3,6 +3,7 @@ package io.github.js.application.article;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.js.application.GlobalExceptionHandler;
 import io.github.js.domain.article.ArticleService;
+import io.github.js.domain.article.ArticleSummaryResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.OptimisticLockException;
 import org.junit.jupiter.api.DisplayName;

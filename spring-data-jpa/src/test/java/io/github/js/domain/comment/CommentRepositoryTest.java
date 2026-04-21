@@ -8,7 +8,7 @@ import io.github.js.domain.user.User;
 import io.github.js.domain.user.UserName;
 import io.github.js.domain.user.UserRepository;
 import io.github.js.infrastructure.auditing.SecurityAuditorAware;
-import io.github.js.infrastructure.repository.JpaConfig;
+import io.github.js.infrastructure.config.JpaConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;

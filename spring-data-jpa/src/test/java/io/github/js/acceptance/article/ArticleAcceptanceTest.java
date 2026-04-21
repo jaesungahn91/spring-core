@@ -3,7 +3,7 @@ package io.github.js.acceptance.article;
 import io.github.js.acceptance.AcceptanceTest;
 import io.github.js.acceptance.user.UserAcceptanceTest;
 import io.github.js.application.article.ArticleResponse;
-import io.github.js.application.article.ArticleSummaryResponse;
+import io.github.js.domain.article.ArticleSummaryResponse;
 import io.github.js.application.article.CreateArticleRequest;
 import io.github.js.application.user.UserResponse;
 import io.restassured.RestAssured;

@@ -1,7 +1,7 @@
 package io.github.js.domain.user;
 
 import io.github.js.infrastructure.auditing.SecurityAuditorAware;
-import io.github.js.infrastructure.repository.JpaConfig;
+import io.github.js.infrastructure.config.JpaConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.OptimisticLockException;
@@ -86,10 +86,8 @@ class UserRepositoryTest {
         em.clear();
 
         User found = userRepository.findById(user.getId()).orElseThrow();
-        // BaseEntity에서 @CreatedBy 자동 세팅
-        // User는 BaseEntity를 상속하지 않으므로 Article로 테스트 (여기서는 Article이 상속)
-        // User 자체에는 createdAt/updatedAt 없음 → 생성 자체는 성공해야 함
-        assertThat(found.getId()).isNotNull();
+        assertThat(found.getCreatedBy()).isEqualTo("john");
+        assertThat(found.getCreatedAt()).isNotNull();
 
         SecurityAuditorAware.clear();
     }

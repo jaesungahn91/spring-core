@@ -1,5 +1,6 @@
 package io.github.js.domain.user;
 
+import io.github.js.domain.BaseEntity;
 import io.github.js.domain.article.Article;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import static org.springframework.util.StringUtils.hasText;
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ? AND version = ?")
 @SQLRestriction("deleted = false")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -72,6 +73,12 @@ public class User {
     public void update(User updatedUser) {
         if (hasText(updatedUser.getEmail().toString())) {
             this.email = updatedUser.getEmail();
+        }
+        if (hasText(updatedUser.getUserName().getNickname())) {
+            this.profile = new Profile(updatedUser.getUserName());
+        }
+        if (hasText(updatedUser.getPassword().getValue())) {
+            this.password = updatedUser.getPassword();
         }
     }
 

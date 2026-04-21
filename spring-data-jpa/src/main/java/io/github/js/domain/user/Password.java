@@ -17,6 +17,10 @@ public class Password {
         this.encodedPassword = encodedPassword;
     }
 
+    public String getValue() {
+        return encodedPassword;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

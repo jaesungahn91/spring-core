@@ -31,7 +31,7 @@ public class UserRestController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable Long id,
-                                                   @RequestBody UpdateUserRequest request) {
+                                                   @Valid @RequestBody UpdateUserRequest request) {
         return ResponseEntity.ok(UserResponse.from(userService.updateUser(id, request.toEntity())));
     }
 

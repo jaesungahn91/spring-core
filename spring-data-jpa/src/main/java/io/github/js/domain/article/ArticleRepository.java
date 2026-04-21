@@ -1,9 +1,9 @@
 package io.github.js.domain.article;
 
-import io.github.js.application.article.ArticleSummaryResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -85,10 +85,19 @@ public interface ArticleRepository extends
      * Page<T>: COUNT 쿼리를 추가로 실행해 전체 페이지 수 / 총 요소 수 포함
      * 게시판형 UI (페이지 번호 표시)에 적합
      */
-    @Query("SELECT new io.github.js.application.article.ArticleSummaryResponse(" +
+    @Query("SELECT new io.github.js.domain.article.ArticleSummaryResponse(" +
            "a.id, a.contents.title.title, a.author.profile.userName.nickname, a.createdAt) " +
            "FROM Article a JOIN a.author")
     Page<ArticleSummaryResponse> findSummariesByPage(Pageable pageable);
+
+    /**
+     * [N+1 해결 - Specification + @EntityGraph]
+     * JpaSpecificationExecutor.findAll(Specification, Pageable)을 오버라이드하여
+     * author를 EAGER 로딩 — searchArticles()에서 발생하던 N+1을 제거한다.
+     */
+    @EntityGraph(attributePaths = {"author"})
+    @Override
+    Page<Article> findAll(Specification<Article> spec, Pageable pageable);
 
     /**
      * Slice<T>: COUNT 쿼리 없이 다음 페이지 존재 여부(hasNext)만 확인
@@ -104,5 +113,6 @@ public interface ArticleRepository extends
      * Interface-based Projection: 필요한 필드만 담은 프록시 객체 반환
      * @Value SpEL로 중첩 경로 접근 (ArticleSummaryProjection 참고)
      */
+    @EntityGraph(attributePaths = {"author"})
     List<ArticleSummaryProjection> findProjectionsByAuthorId(Long authorId);
 }

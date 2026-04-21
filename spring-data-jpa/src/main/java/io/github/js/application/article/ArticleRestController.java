@@ -1,6 +1,7 @@
 package io.github.js.application.article;
 
 import io.github.js.domain.article.ArticleService;
+import io.github.js.domain.article.ArticleSummaryResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

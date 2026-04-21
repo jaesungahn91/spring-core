@@ -1,6 +1,6 @@
 package io.github.js.domain.article;
 
-import io.github.js.application.article.ArticleSummaryResponse;
+import io.github.js.domain.article.ArticleSummaryResponse;
 import io.github.js.domain.tag.Tag;
 import io.github.js.domain.tag.TagRepository;
 import io.github.js.domain.user.Email;
@@ -8,7 +8,7 @@ import io.github.js.domain.user.Password;
 import io.github.js.domain.user.User;
 import io.github.js.domain.user.UserName;
 import io.github.js.domain.user.UserRepository;
-import io.github.js.infrastructure.repository.JpaConfig;
+import io.github.js.infrastructure.config.JpaConfig;
 import io.github.js.infrastructure.auditing.SecurityAuditorAware;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

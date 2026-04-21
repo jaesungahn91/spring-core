@@ -1,4 +1,4 @@
-package io.github.js.infrastructure.repository;
+package io.github.js.infrastructure.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

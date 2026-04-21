@@ -1,6 +1,5 @@
 package io.github.js.domain.article;
 
-import io.github.js.application.article.ArticleSummaryResponse;
 import io.github.js.domain.tag.Tag;
 import io.github.js.domain.tag.TagName;
 import io.github.js.domain.tag.TagRepository;
@@ -17,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,12 +34,17 @@ public class ArticleService {
 
         Article article = Article.create(author, title, description, body);
 
-        // 태그 재사용 or 신규 생성: 동일 이름의 Tag가 있으면 재사용, 없으면 생성
-        for (String tagName : tagNames) {
-            Tag tag = tagRepository.findByName(TagName.of(tagName))
-                    .orElseGet(() -> Tag.of(tagName));
-            article.addTag(tag);
-        }
+        // 태그 재사용 or 신규 생성: 기존 태그 일괄 조회 후 없는 이름만 신규 생성
+        // TagName이 @EqualsAndHashCode + 생성자에서 정규화하므로 Set<TagName>으로 비교
+        List<TagName> requestedNames = tagNames.stream().map(TagName::of).toList();
+        List<Tag> existingTags = tagRepository.findByNameIn(requestedNames);
+        Set<TagName> existingNameSet = existingTags.stream().map(Tag::getName).collect(Collectors.toSet());
+
+        existingTags.forEach(article::addTag);
+        requestedNames.stream()
+                .filter(name -> !existingNameSet.contains(name))
+                .map(name -> Tag.of(name.getValue()))
+                .forEach(article::addTag);
 
         return articleRepository.save(article);
     }
