@@ -29,11 +29,33 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'com.google.guava:guava:31.1-jre'
+	implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'com.querydsl:querydsl-apt:5.1.0:jakarta'
+	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.rest-assured:rest-assured'
+}
+
+def querydslGeneratedDir = layout.buildDirectory.dir('generated/sources/annotationProcessor/java/main')
+
+tasks.withType(JavaCompile).configureEach {
+	options.generatedSourceOutputDirectory.set(querydslGeneratedDir)
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs += querydslGeneratedDir.get().asFile
+		}
+	}
+}
+
+clean {
+	delete querydslGeneratedDir
 }
 
 tasks.named('test') {
