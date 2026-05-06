@@ -225,6 +225,38 @@ class ArticleRepositoryTest {
     }
 
     // -------------------------------------------------------------------------
+    // Custom Repository (QueryDSL)
+    // -------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("QueryDSL findByAnyTagName: 태그 OR 조건 + distinct로 중복 제거")
+    void queryDslFindByAnyTagName() {
+        Tag javaTag = tagRepository.save(Tag.of("java"));
+        Tag springTag = tagRepository.save(Tag.of("spring"));
+        Tag pythonTag = tagRepository.save(Tag.of("python"));
+
+        Article a1 = Article.create(author, "Spring Boot", "d", "b");
+        a1.addTag(javaTag);
+        a1.addTag(springTag); // 두 태그 중 둘 다 매칭되어도 distinct로 1건
+        articleRepository.save(a1);
+
+        Article a2 = Article.create(author, "Python Guide", "d", "b");
+        a2.addTag(pythonTag);
+        articleRepository.save(a2);
+
+        Article a3 = Article.create(author, "Go Tutorial", "d", "b"); // 태그 없음
+        articleRepository.save(a3);
+
+        em.flush();
+        em.clear();
+
+        List<Article> result = articleRepository.findByAnyTagName(List.of("java", "spring"));
+
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getTitle()).isEqualTo("Spring Boot");
+    }
+
+    // -------------------------------------------------------------------------
     // @Modifying + clearAutomatically
     // -------------------------------------------------------------------------
 

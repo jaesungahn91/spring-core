@@ -15,7 +15,7 @@ public interface ArticleRepositoryCustom {
 
     /**
      * 여러 태그 중 하나라도 일치하는 게시글 조회 (OR 조건).
-     * Specification으로 표현하기 까다로운 IN + JOIN 쿼리를 JPQL로 직접 작성.
+     * Specification으로 표현하기 까다로운 IN + JOIN 쿼리를 QueryDSL로 타입 안전하게 작성.
      */
     List<Article> findByAnyTagName(List<String> tagNames);
 }
