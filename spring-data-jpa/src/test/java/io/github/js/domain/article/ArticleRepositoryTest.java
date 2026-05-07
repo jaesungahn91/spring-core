@@ -1,15 +1,10 @@
 package io.github.js.domain.article;
 
-import io.github.js.domain.article.ArticleSummaryResponse;
 import io.github.js.domain.tag.Tag;
 import io.github.js.domain.tag.TagRepository;
-import io.github.js.domain.user.Email;
-import io.github.js.domain.user.Password;
-import io.github.js.domain.user.User;
-import io.github.js.domain.user.UserName;
-import io.github.js.domain.user.UserRepository;
-import io.github.js.infrastructure.config.JpaConfig;
+import io.github.js.domain.user.*;
 import io.github.js.infrastructure.auditing.SecurityAuditorAware;
+import io.github.js.infrastructure.config.JpaConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.hibernate.stat.Statistics;
@@ -19,10 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -254,6 +247,49 @@ class ArticleRepositoryTest {
 
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getTitle()).isEqualTo("Spring Boot");
+    }
+
+    @Test
+    @DisplayName("QueryDSL searchArticles: null 조건은 자동 무시되어 전체 결과 반환")
+    void queryDslNullConditionsAreIgnored() {
+        articleRepository.save(Article.create(author, "t1", "d", "b"));
+        articleRepository.save(Article.create(author, "t2", "d", "b"));
+        em.flush();
+        em.clear();
+
+        Page<ArticleSummaryResponse> result = articleRepository.searchArticles(
+                null, null, null, null, PageRequest.of(0, 10));
+
+        assertThat(result.getTotalElements()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("QueryDSL searchArticles: Specification 방식과 동일 결과 반환")
+    void queryDslAndSpecificationReturnSameResult() {
+        Tag javaTag = tagRepository.save(Tag.of("java"));
+        Article a1 = Article.create(author, "Spring Boot", "d", "b");
+        a1.addTag(javaTag);
+        articleRepository.save(a1);
+        articleRepository.save(Article.create(author, "Python Guide", "d", "b"));
+        em.flush();
+        em.clear();
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
+
+        Specification<Article> spec = ArticleSpecification.hasAuthorName("tester")
+                .and(ArticleSpecification.titleContains("Spring"));
+        List<String> specTitles = articleRepository.findAll(spec, pageable)
+                .map(a -> a.getTitle())
+                .getContent();
+
+        Page<ArticleSummaryResponse> queryDslResult = articleRepository.searchArticles(
+                "tester", null, "Spring", null, pageable);
+        List<String> queryDslTitles = queryDslResult.getContent().stream()
+                .map(ArticleSummaryResponse::title)
+                .toList();
+
+        assertThat(queryDslResult.getTotalElements()).isEqualTo(specTitles.size());
+        assertThat(queryDslTitles).isEqualTo(specTitles);
     }
 
     // -------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 package io.github.js.domain.article;
 
+import io.github.js.infrastructure.persistence.article.ArticleRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
         JpaSpecificationExecutor<Article>,   // Specification 동적 쿼리
-        ArticleRepositoryCustom {            // 커스텀 리포지토리
+        ArticleRepositoryCustom {            // QueryDSL 커스텀 리포지토리 (infra)
 
     // -----------------------------------------------------------------------
     // N+1 문제 시연 및 해결

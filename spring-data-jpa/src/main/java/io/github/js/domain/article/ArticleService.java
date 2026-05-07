@@ -75,7 +75,7 @@ public class ArticleService {
     }
 
     /**
-     * Specification 조합으로 동적 검색: null 조건은 자동 무시
+     * [Specification] 동적 검색: null 조건은 cb.conjunction()으로 무시
      */
     @Transactional(readOnly = true)
     public Page<ArticleSummaryResponse> searchArticles(
@@ -92,6 +92,17 @@ public class ArticleService {
                         a.getTitle(),
                         a.getAuthor().getProfile().getUserName().getNickname(),
                         a.getCreatedAt()));
+    }
+
+    /**
+     * [QueryDSL] 동적 검색: null 조건은 BooleanExpression null 반환으로 where()에서 자동 무시
+     * searchArticles()와 동일 결과를 반환하며, 두 방식의 비교 학습을 위해 병렬 제공한다.
+     */
+    @Transactional(readOnly = true)
+    public Page<ArticleSummaryResponse> searchArticlesByQueryDsl(
+            String authorName, String tag, String keyword, Instant createdAfter, Pageable pageable) {
+
+        return articleRepository.searchArticles(authorName, tag, keyword, createdAfter, pageable);
     }
 
     /**
