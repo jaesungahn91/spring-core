@@ -1,12 +1,16 @@
 package io.github.js.infrastructure.persistence.article;
 
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.github.js.domain.article.Article;
 import io.github.js.domain.article.ArticleSummaryResponse;
 import io.github.js.domain.article.QArticle;
+import io.github.js.domain.comment.QComment;
 import io.github.js.domain.tag.QTag;
 import io.github.js.domain.user.QUser;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +87,54 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom {
                 );
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
+    // EXISTS 서브쿼리: JOIN 없이 댓글 존재 여부만 체크 — 중복 행 없음
+    @Override
+    public List<Article> findArticlesHavingComment() {
+        QArticle article = QArticle.article;
+        QComment comment = QComment.comment;
+
+        return queryFactory
+                .selectFrom(article)
+                .where(JPAExpressions
+                        .selectOne()
+                        .from(comment)
+                        .where(comment.article.id.eq(article.id))
+                        .exists())
+                .fetch();
+    }
+
+    // OrderSpecifier: 정렬 기준을 런타임에 결정 — Specification/JPQL 파싱 없이 타입 안전하게 조합
+    @Override
+    public List<Article> findWithDynamicSort(String sortField, boolean asc, Pageable pageable) {
+        QArticle article = QArticle.article;
+
+        ComparableExpressionBase<?> sortExpression = switch (sortField) {
+            case "viewCount" -> article.viewCount;
+            case "createdAt" -> article.createdAt;
+            default -> article.id;
+        };
+        OrderSpecifier<?> order = asc ? sortExpression.asc() : sortExpression.desc();
+
+        return queryFactory
+                .selectFrom(article)
+                .orderBy(order)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    // SELECT 1 ... LIMIT 1: 첫 행 발견 즉시 중단 — COUNT(*)는 조건 만족 행 전체를 스캔
+    @Override
+    public boolean existsArticleByAuthorId(Long authorId) {
+        QArticle article = QArticle.article;
+
+        return queryFactory
+                .selectOne()
+                .from(article)
+                .where(article.author.id.eq(authorId))
+                .fetchFirst() != null;
     }
 
     private BooleanExpression hasAuthorName(String authorName, QUser author) {

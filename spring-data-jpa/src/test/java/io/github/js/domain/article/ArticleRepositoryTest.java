@@ -1,5 +1,8 @@
 package io.github.js.domain.article;
 
+import io.github.js.domain.comment.Comment;
+import io.github.js.domain.comment.CommentBody;
+import io.github.js.domain.comment.CommentRepository;
 import io.github.js.domain.tag.Tag;
 import io.github.js.domain.tag.TagRepository;
 import io.github.js.domain.user.*;
@@ -34,6 +37,7 @@ class ArticleRepositoryTest {
     @Autowired ArticleRepository articleRepository;
     @Autowired UserRepository userRepository;
     @Autowired TagRepository tagRepository;
+    @Autowired CommentRepository commentRepository;
     @PersistenceContext EntityManager em;
 
     private User author;
@@ -290,6 +294,56 @@ class ArticleRepositoryTest {
 
         assertThat(queryDslResult.getTotalElements()).isEqualTo(specTitles.size());
         assertThat(queryDslTitles).isEqualTo(specTitles);
+    }
+
+    // -------------------------------------------------------------------------
+    // QueryDSL 강점 기능 (Phase 4)
+    // -------------------------------------------------------------------------
+
+    @Test
+    @DisplayName("EXISTS 서브쿼리: 댓글이 있는 게시글만 조회 — JOIN과 달리 중복 행 없음")
+    void existsSubqueryFindsArticlesHavingComment() {
+        Article withComment = articleRepository.save(Article.create(author, "has comment", "d", "b"));
+        Article withoutComment = articleRepository.save(Article.create(author, "no comment", "d", "b"));
+        commentRepository.save(Comment.create(withComment, author, CommentBody.of("hi")));
+        em.flush();
+        em.clear();
+
+        List<Article> result = articleRepository.findArticlesHavingComment();
+
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getTitle()).isEqualTo("has comment");
+    }
+
+    @Test
+    @DisplayName("동적 정렬: viewCount 내림차순 — OrderSpecifier로 런타임 정렬 조건 구성")
+    void dynamicSortByViewCount() {
+        Article a1 = articleRepository.save(Article.create(author, "low", "d", "b"));
+        Article a2 = articleRepository.save(Article.create(author, "high", "d", "b"));
+        em.flush();
+
+        // viewCount 직접 증가 (native query)
+        em.createNativeQuery("UPDATE articles SET view_count = 5 WHERE id = " + a2.getId()).executeUpdate();
+        em.clear();
+
+        List<Article> result = articleRepository.findWithDynamicSort("viewCount", false, PageRequest.of(0, 10));
+
+        assertThat(result.get(0).getTitle()).isEqualTo("high");
+        assertThat(result.get(1).getTitle()).isEqualTo("low");
+    }
+
+    @Test
+    @DisplayName("exists 최적화: SELECT 1 LIMIT 1 — COUNT(*)보다 첫 행 발견 즉시 중단")
+    void existsOptimizationStopsAtFirstMatch() {
+        articleRepository.save(Article.create(author, "article", "d", "b"));
+        em.flush();
+        em.clear();
+
+        assertThat(articleRepository.existsArticleByAuthorId(author.getId())).isTrue();
+
+        User other = userRepository.save(
+                User.of(new Email("other@test.com"), new UserName("other"), new Password("pw")));
+        assertThat(articleRepository.existsArticleByAuthorId(other.getId())).isFalse();
     }
 
     // -------------------------------------------------------------------------
