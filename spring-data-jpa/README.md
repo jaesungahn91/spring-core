@@ -13,3 +13,9 @@
 - https://docs.spring.io/spring-data/jpa/docs/2.7.6/reference/html
 
 ---
+
+## 문서
+
+- [Specification vs QueryDSL 비교](docs/querydsl-vs-specification.md)
+
+---
